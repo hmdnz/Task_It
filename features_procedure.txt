@@ -1,0 +1,18 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `features`(IN `in_id` INT(50), IN `in_feat_etitle` VARCHAR(50), IN `in_feat_desc` VARCHAR(200), IN `in_createad_at` VARCHAR(50), IN `in_created_by` VARCHAR(50), IN `in_approved_at` VARCHAR(50), IN `in_approved_by` VARCHAR(50), IN `in_assigned_to` VARCHAR(50), IN `query_type` VARCHAR(50))
+BEGIN
+IF query_type = 'insert' THEN INSERT INTO features_tbl
+(id,feat_etitle,feat_desc,createad_at,created_by,approved_at,approved_by,assigned_to)
+    
+VALUES(
+ in_id,	in_feat_etitle,	in_feat_desc,in_createad_at,in_created_by,in_approved_at,	in_approved_by,in_assigned_to);
+ 
+ELSEIF query_type = 'select' THEN SELECT * from features_tbl;
+
+ELSEIF query_type = 'update' THEN UPDATE `features_tbl set` SET 	id=in_id,feat_etitle=in_feat_etitle,feat_desc=in_feat_desc,	createad_at=in_createad_at,created_by=in_created_by,approved_at=in_approved_at,	approved_by=in_approved_by,assigned_to=in_assigned_to
+
+WHERE id=in_id;
+ELSEIF query_type = 'delete' THEN DELETE FROM features_tbl WHERE id=in_id;
+END IF;
+END$$
+DELIMITER ;
